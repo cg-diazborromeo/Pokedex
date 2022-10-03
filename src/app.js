@@ -3,31 +3,33 @@ const $listaPokemones = document.querySelector('#lista-pokemones');
 const $listaSiguiente = document.querySelector('#siguiente');
 const $listaPrevia = document.querySelector('#previo');
 let pokemonInicio = 1;
-let pokemonFinal = 18;
-let arrayPokemones = [];
+let pokemonFinal = 20;
 
 obtenerPokemones(pokemonInicio, pokemonFinal);
 
 $listaSiguiente.onclick = function(event) {
-    resetearPokemones();
-    pokemonInicio += 18;
-    pokemonFinal += 18;
-    obtenerPokemones();
+    borrarPokemones()
+    pokemonesSiguientes();
+    console.log(pokemonInicio, pokemonFinal);
+    obtenerPokemones(pokemonInicio, pokemonFinal);
 
-    event.preventDefault(pokemonInicio, pokemonFinal);
+    event.preventDefault();
 }
 
 $listaPrevia.onclick = function(event) {
-    resetearPokemones();
-    pokemonInicio -= 18;
-    pokemonFinal -= 18;
+    borrarPokemones();
+    if (pokemonInicio > 20) {
+        pokemonesPrevios();
+    } else {
+        return
+    }
     obtenerPokemones(pokemonInicio, pokemonFinal);
     
     event.preventDefault();
 }
 
 
-function obtenerPokemones() {
+function obtenerPokemones(pokemonInicio, pokemonFinal) {
     for (let i = pokemonInicio; i <= pokemonFinal; i++) {
         fetch(`${baseURL}/pokemon-form/${i}`)
         .then(respuesta => respuesta.json())
@@ -37,14 +39,14 @@ function obtenerPokemones() {
             const $container = document.createElement('div');
             const $nameContainer = document.createElement('p');
 
-            $container.classList = "container text-center";
-            $imgPokemon.classList = 'col';
-            $namePokemon.classList = 'col';
+            $container.classList = 'container text-center';
+            $imgPokemon.classList = 'col', 'pokemon-imagen';
+            $namePokemon.classList = 'col', 'pokemon-nombre';
+            $nameContainer.classList = 'container-nombre';
 
             $imgPokemon.src = respuesta.sprites.front_default;
             $namePokemon.textContent = (respuesta.pokemon.name).charAt(0).toUpperCase() + (respuesta.pokemon.name).slice(1);
             $namePokemon.href = respuesta.pokemon.url;
-            $container.id = 'pokemon-container';
 
             $nameContainer.appendChild($namePokemon);
             $container.appendChild($imgPokemon);
@@ -55,27 +57,63 @@ function obtenerPokemones() {
     }
 }
 
-function resetearPokemones() {
-    const $imagenesSeleccionadas = document.querySelectorAll('#pokemon-container img');
-    $imagenesSeleccionadas.forEach(imagen => {
-        $listaCambios.removeChild(imagen);
-    });
+function pokemonesSiguientes() {
+    pokemonInicio += 20;
+    pokemonFinal += 20;
 }
+
+function pokemonesPrevios() {
+    pokemonInicio -= 20;
+    pokemonFinal -= 20;
+}
+
+function borrarPokemones() {
+    const $pokemonContainer = document.querySelectorAll('.container', 'text-center');
+    const $pokemonImg = document.querySelectorAll('.col', 'pokemon-imagen');
+    const $pokemonName = document.querySelectorAll('.col', 'pokemon-nombre');
+    const $nameContainer = document.querySelectorAll('.container-nombre');
+
+    $pokemonContainer.forEach(container => {
+        container.remove();
+    })
+
+    $pokemonImg.forEach(imagen => {
+        imagen.remove();
+    })
+
+    $pokemonName.forEach(name => {
+        name.remove();
+    })
+
+    $nameContainer.forEach(element => {
+        element.remove();
+    })
+}
+
+// obtenerNombres();
 
 // function obtenerNombres() {
 //     fetch(`${baseURL}/pokemon/?limit=20`)
 //     .then(respuesta => respuesta.json())
 //     .then(respuesta => {
 //         Object.keys(respuesta.results).forEach(pokemon => {
-//             const $pokemon = document.createElement('label');
-//             const $pokemonContainer = document.createElement('div');
-//             arrayPokemones.push(respuesta.results[pokemon].name);
+//             const $pokemonName = document.createElement('a');
+//             const $nameContainer = document.createElement('p');
+//             const $container = document.createElement('div');
+            
+//             $container.classList = 'container text-center';
+//             $pokemonName.classList = 'col', 'pokemon-nombre';
+//             $nameContainer.classList = 'container-nombre';
+//             $pokemonName.textContent = (respuesta.results[pokemon].name).charAt(0).toUpperCase() + (respuesta.results[pokemon].name).slice(1);
+//             $pokemonName.src = respuesta.results[pokemon].url;
 
-//             $pokemon.textContent = respuesta.results[pokemon].name;
-//             $pokemonContainer.id = respuesta.results[pokemon].name;
-//             $pokemonContainer.appendChild($pokemon);
-//             $listaPokemones.appendChild($pokemonContainer);
+//             $nameContainer.appendChild($pokemonName);
+//             $container.appendChild($nameContainer);
+//             $listaPokemones.appendChild($container);
 //         })
 //     })
-//     .catch(error => window.alert('No se obtuvieron resultados', error));
+//     .then(respuesta => {
+//         console.log(respuesta)
+//     })
+//     .catch(error => console.log('No se obtuvieron resultados', error));
 // }
