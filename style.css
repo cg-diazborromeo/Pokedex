@@ -11,3 +11,8 @@
     margin-right: auto;
     width: 50%;
 }
+
+.row.justify-content-center {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
