@@ -3,7 +3,7 @@ const $listaPokemones = document.querySelector('#lista-pokemones');
 const $listaSiguiente = document.querySelector('#siguiente');
 const $listaPrevia = document.querySelector('#previo');
 let pokemonInicio = 1;
-let pokemonFinal = 20;
+let pokemonFinal = 18;
 
 obtenerPokemones(pokemonInicio, pokemonFinal);
 
@@ -18,7 +18,7 @@ $listaSiguiente.onclick = function(event) {
 
 $listaPrevia.onclick = function(event) {
     borrarPokemones();
-    if (pokemonInicio > 20) {
+    if (pokemonInicio > 18) {
         pokemonesPrevios();
     } else {
         return
@@ -39,9 +39,9 @@ function obtenerPokemones(pokemonInicio, pokemonFinal) {
             const $container = document.createElement('div');
             const $nameContainer = document.createElement('p');
 
-            $container.classList = 'container text-center';
-            $imgPokemon.classList = 'col', 'pokemon-imagen';
-            $namePokemon.classList = 'col', 'pokemon-nombre';
+            $container.classList = 'container col-4';
+            $imgPokemon.classList = 'pokemon-imagen image-center';
+            $namePokemon.classList = 'pokemon-nombre';
             $nameContainer.classList = 'container-nombre';
 
             $imgPokemon.src = respuesta.sprites.front_default;
@@ -58,19 +58,19 @@ function obtenerPokemones(pokemonInicio, pokemonFinal) {
 }
 
 function pokemonesSiguientes() {
-    pokemonInicio += 20;
-    pokemonFinal += 20;
+    pokemonInicio += 18;
+    pokemonFinal += 18;
 }
 
 function pokemonesPrevios() {
-    pokemonInicio -= 20;
-    pokemonFinal -= 20;
+    pokemonInicio -= 18;
+    pokemonFinal -= 18;
 }
 
 function borrarPokemones() {
-    const $pokemonContainer = document.querySelectorAll('.container', 'text-center');
-    const $pokemonImg = document.querySelectorAll('.col', 'pokemon-imagen');
-    const $pokemonName = document.querySelectorAll('.col', 'pokemon-nombre');
+    const $pokemonContainer = document.querySelectorAll('.container', 'col-4');
+    const $pokemonImg = document.querySelectorAll('.pokemon-imagen');
+    const $pokemonName = document.querySelectorAll('.pokemon-nombre');
     const $nameContainer = document.querySelectorAll('.container-nombre');
 
     $pokemonContainer.forEach(container => {
