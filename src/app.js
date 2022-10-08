@@ -1,39 +1,36 @@
-const baseURL = new URL ('https://pokeapi.co/api/v2');
+const baseURL = new URL ('https://pokeapi.co/api/v2/');
 const $listaPokemones = document.querySelector('#lista-pokemones');
 const $listaSiguiente = document.querySelector('#siguiente');
 const $listaPrevia = document.querySelector('#previo');
-let pokemonInicio = 1;
-let pokemonFinal = 18;
+pokemonesIniciales = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20'
+pokemonesPrevios = '';
+pokemonesSiguientes = '';
 
-obtenerPokemones(pokemonInicio, pokemonFinal);
+obtenerPokemones(pokemonesIniciales);
 
 $listaSiguiente.onclick = function(event) {
     borrarPokemones()
-    pokemonesSiguientes();
-    console.log(pokemonInicio, pokemonFinal);
-    obtenerPokemones(pokemonInicio, pokemonFinal);
+    obtenerPokemones(pokemonesSiguientes);
 
     event.preventDefault();
 }
 
 $listaPrevia.onclick = function(event) {
     borrarPokemones();
-    if (pokemonInicio > 18) {
-        pokemonesPrevios();
-    } else {
-        return
-    }
-    obtenerPokemones(pokemonInicio, pokemonFinal);
+    obtenerPokemones(pokemonesPrevios);
     
     event.preventDefault();
 }
 
 
-function obtenerPokemones(pokemonInicio, pokemonFinal) {
-    for (let i = pokemonInicio; i <= pokemonFinal; i++) {
-        fetch(`${baseURL}/pokemon-form/${i}`)
-        .then(respuesta => respuesta.json())
-        .then(respuesta => {
+function obtenerPokemones(listaPokemones) {
+    fetch(`${listaPokemones}`)
+    .then(respuesta => respuesta.json())
+    .then(respuesta => {
+        pokemonesPrevios = respuesta.previous === null ? pokemonesIniciales : respuesta.previous;
+        pokemonesSiguientes = respuesta.next;
+
+        Object.keys(respuesta.results).forEach(pokemon => {
             const $imgPokemon = document.createElement('img');
             const $namePokemon = document.createElement('a');
             const $container = document.createElement('div');
@@ -43,28 +40,18 @@ function obtenerPokemones(pokemonInicio, pokemonFinal) {
             $imgPokemon.classList = 'pokemon-imagen image-center';
             $namePokemon.classList = 'pokemon-nombre';
             $nameContainer.classList = 'container-nombre';
-
-            $imgPokemon.src = respuesta.sprites.front_default;
-            $namePokemon.textContent = (respuesta.pokemon.name).charAt(0).toUpperCase() + (respuesta.pokemon.name).slice(1);
-            $namePokemon.href = respuesta.pokemon.url;
+        
+            $imgPokemon.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${respuesta.results[pokemon].url.slice(30).match(/(\d+)/g)}.png`;
+            $namePokemon.textContent = (respuesta.results[pokemon].name).charAt(0).toUpperCase() + (respuesta.results[pokemon].name).slice(1);
+            $namePokemon.href = respuesta.results[pokemon].url;
 
             $nameContainer.appendChild($namePokemon);
             $container.appendChild($imgPokemon);
             $container.appendChild($nameContainer)
             $listaPokemones.appendChild($container);
         })
-        .catch(error => console.log('No se obtuvieron resultados', error));
-    }
-}
-
-function pokemonesSiguientes() {
-    pokemonInicio += 18;
-    pokemonFinal += 18;
-}
-
-function pokemonesPrevios() {
-    pokemonInicio -= 18;
-    pokemonFinal -= 18;
+    })
+    .catch(error => console.log('No se obtuvieron resultados', error));
 }
 
 function borrarPokemones() {
@@ -89,31 +76,3 @@ function borrarPokemones() {
         element.remove();
     })
 }
-
-// obtenerNombres();
-
-// function obtenerNombres() {
-//     fetch(`${baseURL}/pokemon/?limit=20`)
-//     .then(respuesta => respuesta.json())
-//     .then(respuesta => {
-//         Object.keys(respuesta.results).forEach(pokemon => {
-//             const $pokemonName = document.createElement('a');
-//             const $nameContainer = document.createElement('p');
-//             const $container = document.createElement('div');
-            
-//             $container.classList = 'container text-center';
-//             $pokemonName.classList = 'col', 'pokemon-nombre';
-//             $nameContainer.classList = 'container-nombre';
-//             $pokemonName.textContent = (respuesta.results[pokemon].name).charAt(0).toUpperCase() + (respuesta.results[pokemon].name).slice(1);
-//             $pokemonName.src = respuesta.results[pokemon].url;
-
-//             $nameContainer.appendChild($pokemonName);
-//             $container.appendChild($nameContainer);
-//             $listaPokemones.appendChild($container);
-//         })
-//     })
-//     .then(respuesta => {
-//         console.log(respuesta)
-//     })
-//     .catch(error => console.log('No se obtuvieron resultados', error));
-// }
