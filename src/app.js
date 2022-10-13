@@ -6,6 +6,8 @@ const $listaPrevia = document.querySelector('#previo');
 const $numerosPaginas = document.querySelector('#select-pagina');
 const $botonSeleccionar = document.querySelector('#seleccionar');
 const $navegador = document.querySelector('#navegador');
+const $navIndividual = document.querySelector('#navegador-individual');
+const $botonVolver = document.querySelector("voler");
 let pokemonesIniciales = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20';
 let pokemonesPrevios = '';
 let pokemonesSiguientes = '';
@@ -30,6 +32,15 @@ $listaPrevia.onclick = function(event) {
 $botonSeleccionar.onclick = function(event) {
     borrarPokemones();
     obtenerPokemones(`${baseURL}pokemon/?offset=${($numerosPaginas.value-1)*20}&limit=20`);
+
+    event.preventDefault();
+}
+
+$botonVolver.onclick = function(event) {
+    ocultarFichaPokemon();
+    ocultarNavegadorIndividual();
+    mostrarPokemones();
+    mostrarPaginacion();
 
     event.preventDefault();
 }
@@ -108,21 +119,38 @@ function borrarPokemones() {
 
 function obtenerPokemon(url) {
     mostrarFichaPokemon();
+    mostrarNavegadorIndividual();
     fetch(url)
     .then(respuesta => respuesta.json())
     .then(respuesta => {
         const $container = document.createElement('div');
         const $imgPokemon = document.createElement('img');
+        const $textContainer = document.createElement('p');
+        const $namePokemon = document.createElement('a');  
+        const $pokemonNumber = document.createElement('a');
+        const $pokemonType = document.createElement('a');
+        const $pokemonHeight = document.createElement('a');
+        const $pokemonWeight = document.createElement('a');
 
         $container.classList = 'container col-3';
         $imgPokemon.classList = 'pokemon-imagen image-center';
         $imgPokemon.src = respuesta.sprites.front_default;
-       
+        $namePokemon.textContent = (respuesta.name).charAt(0).toUpperCase() + (respuesta.name).slice(1);
+        $pokemonNumber.textContent = `#${respuesta.id}`;
+        $pokemonType.textContent = `Type: ${(respuesta.types[0].type.name).charAt(0).toUpperCase() + (respuesta.types[0].type.name).slice(1)}`;
+        $pokemonHeight.textContent = `Height: ${(respuesta.height)}`;
+        $pokemonWeight.textContent = `Weight: ${(respuesta.weight)}`;
+
         $container.appendChild($imgPokemon);
+        $textContainer.appendChild($namePokemon);
+        $textContainer.appendChild($pokemonNumber);
+        $textContainer.appendChild($pokemonType);
+        $textContainer.appendChild($pokemonHeight);
+        $textContainer.appendChild($pokemonWeight);
+        $container.appendChild($textContainer);
         $fichaPokemon.appendChild($container);
 
     })
-
 }
 
 function cargarPaginacion(cantidadPaginas) {
@@ -145,9 +173,28 @@ function ocultarPokemones() {
     $listaPokemones.classList = 'oculto';
 }
 
+function mostrarPokemones() {
+    $listaPokemones.classList = 'row row-cols-2 text-center';
+}
+
 function ocultarPaginacion() {
     $navegador.classList = 'oculto';
-    document.querySelector('#navegador-individual').classList = 'row justify-content-center';
+}
+
+function mostrarPaginacion() {
+    $navegador.classList = 'row justify-content-center';
+}
+
+function ocultarNavegadorIndividual() {
+    $navIndividual.classList = 'oculto';
+}
+
+function mostrarNavegadorIndividual() {
+    $navIndividual.classList = 'row justify-content-center';
+}
+
+function ocultarFichaPokemon() {
+    $fichaPokemon.classList = 'oculto';
 }
 
 function mostrarFichaPokemon() {
