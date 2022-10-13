@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <title>Pokedex</title> -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./node_modules/nes.css/css/nes.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,16 +12,24 @@
     <link rel="stylesheet" href="node_modules\bootstrap\dist\css\bootstrap.min.css">
 </head>
 <body>
-    <div id="logo" class="image-center">
-        <img src="images\pokedex-logo.png" width="600" height="100" >
+    <div id="logo">
+        <img src="images\pokedex-logo.png" width="600" height="100" class="image-center">
     </div>
 
-    <div id="lista-pokemones" class="row row-cols-3 text-center"></div>
+    <div id="lista-pokemones" class="row row-cols-2 text-center"></div>
+    <div id="ficha-pokemon" class="oculto"></div>
 
     <form>
         <div id="navegador" class="row justify-content-center">
             <button id="previo" class="col-3">Previos</button>
+            <select id="select-pagina" class="col-1">
+                <option value=""></option>
+            </select>
+            <button id="seleccionar" class="col-1">Select</button>
             <button id="siguiente" class="col-3">Siguientes</button>
+        </div>
+        <div id="navegador-individual" class="oculto">
+            <button id="volver" class="col-3">Volver</button>
         </div>
     </form>
 

@@ -16,3 +16,11 @@
     margin-top: 25px;
     margin-bottom: 25px;
 }
+
+a:link, a:visited, a:hover, a:active  {
+    text-decoration: none;
+}
+
+.oculto {
+    display: none;
+}
