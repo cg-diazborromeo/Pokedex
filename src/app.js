@@ -136,10 +136,10 @@ function obtenerPokemon(url) {
         $imgPokemon.classList = 'pokemon-imagen image-center';
         $imgPokemon.src = respuesta.sprites.front_default;
         $namePokemon.textContent = (respuesta.name).charAt(0).toUpperCase() + (respuesta.name).slice(1);
-        $pokemonNumber.textContent = `#${respuesta.id}`;
+        $pokemonNumber.textContent = `Order: #${respuesta.id}`;
         $pokemonType.textContent = `Type: ${(respuesta.types[0].type.name).charAt(0).toUpperCase() + (respuesta.types[0].type.name).slice(1)}`;
-        $pokemonHeight.textContent = `Height: ${(respuesta.height)}`;
-        $pokemonWeight.textContent = `Weight: ${(respuesta.weight)}`;
+        $pokemonHeight.textContent = `Height: ${respuesta.height/10} M.`;
+        $pokemonWeight.textContent = `Weight: ${respuesta.weight/10} Kg.`;
 
         $container.appendChild($imgPokemon);
         $textContainer.appendChild($namePokemon);
@@ -149,9 +149,8 @@ function obtenerPokemon(url) {
         $textContainer.appendChild($pokemonWeight);
         $container.appendChild($textContainer);
         $fichaPokemon.appendChild($container);
-
-    })
-}
+    });
+};
 
 function cargarPaginacion(cantidadPaginas) {
     for (let i = 1; i <= cantidadPaginas; i++) {
@@ -171,32 +170,32 @@ function borrarPaginacion() {
 
 function ocultarPokemones() {
     $listaPokemones.classList = 'oculto';
-}
+};
 
 function mostrarPokemones() {
     $listaPokemones.classList = 'row row-cols-2 text-center';
-}
+};
 
 function ocultarPaginacion() {
     $navegador.classList = 'oculto';
-}
+};
 
 function mostrarPaginacion() {
     $navegador.classList = 'row justify-content-center';
-}
+};
 
 function ocultarNavegadorIndividual() {
     $navIndividual.classList = 'oculto';
-}
+};
 
 function mostrarNavegadorIndividual() {
     $navIndividual.classList = 'row justify-content-center';
-}
+};
 
 function ocultarFichaPokemon() {
     $fichaPokemon.classList = 'oculto';
-}
+};
 
 function mostrarFichaPokemon() {
     $fichaPokemon.classList = 'row row-cols-2 text-center'
-}
+};
