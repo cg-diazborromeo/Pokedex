@@ -1,7 +1,7 @@
 * {
     font-family: 'Press Start 2P', cursive;
     background-color: #F8F0E8;
-    color: black;
+    color: white;
     display: grid;
 }
 
@@ -23,4 +23,20 @@ a:link, a:visited, a:hover, a:active  {
 
 .oculto {
     display: none;
+}
+
+ .container {
+    padding:5px;
+    background-image: linear-gradient(#C8A8E8, #C8A8E8), 
+        linear-gradient(#F8F0E8, #F8F0E8);
+    background-clip: content-box, padding-box;
+}
+
+p, #volver, #previo, #seleccionar, #siguiente {
+    background-color: #788090;
+}
+
+#select-pagina {
+    background-color: white;
+    color:#788090;
 }
