@@ -58,14 +58,16 @@ function obtenerPokemones(listaPokemones) {
 
         Object.keys(respuesta.results).forEach(pokemon => {
             const $imgPokemon = document.createElement('img');
-            const $namePokemon = document.createElement('a');
+            const $namePokemon = document.createElement('p');
             const $container = document.createElement('div');
-            const $nameContainer = document.createElement('p');
+            const $nameContainer = document.createElement('div');
+            const $imgContainer = document.createElement('div');
             
             $container.classList = 'container col-3';
             $imgPokemon.classList = 'pokemon-imagen image-center';
             $namePokemon.classList = 'pokemon-nombre';
             $nameContainer.classList = 'container-nombre';
+            $imgContainer.classList = 'container-imagen';
         
             $imgPokemon.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${respuesta.results[pokemon].url.slice(30).match(/(\d+)/g)}.png`;
             $imgPokemon.onclick = (e) => {
@@ -86,8 +88,9 @@ function obtenerPokemones(listaPokemones) {
             };
 
             $nameContainer.appendChild($namePokemon);
-            $container.appendChild($imgPokemon);
-            $container.appendChild($nameContainer)
+            $imgContainer.appendChild($imgPokemon);
+            $container.appendChild($imgContainer);
+            $container.appendChild($nameContainer);
             $listaPokemones.appendChild($container);
         });
     })
@@ -99,6 +102,7 @@ function borrarPokemones() {
     const $pokemonImg = document.querySelectorAll('.pokemon-imagen');
     const $pokemonName = document.querySelectorAll('.pokemon-nombre');
     const $nameContainer = document.querySelectorAll('.container-nombre');
+    const $imgContainer = document.querySelectorAll('.container-imagen');
 
     $pokemonContainer.forEach(container => {
         container.remove();
@@ -115,6 +119,10 @@ function borrarPokemones() {
     $nameContainer.forEach(element => {
         element.remove();
     });
+
+    $imgContainer.forEach(element => {
+        element.remove();
+    });
 };
 
 function obtenerPokemon(url) {
@@ -125,12 +133,13 @@ function obtenerPokemon(url) {
     .then(respuesta => {
         const $container = document.createElement('div');
         const $imgPokemon = document.createElement('img');
-        const $textContainer = document.createElement('p');
-        const $namePokemon = document.createElement('a');  
-        const $pokemonNumber = document.createElement('a');
-        const $pokemonType = document.createElement('a');
-        const $pokemonHeight = document.createElement('a');
-        const $pokemonWeight = document.createElement('a');
+        const $textContainer = document.createElement('div');
+        const $imgContainer = document.createElement('div');
+        const $namePokemon = document.createElement('p');  
+        const $pokemonNumber = document.createElement('p');
+        const $pokemonType = document.createElement('p');
+        const $pokemonHeight = document.createElement('p');
+        const $pokemonWeight = document.createElement('p');
 
         $container.classList = 'container col-3';
         $imgPokemon.classList = 'pokemon-imagen image-center';
@@ -140,13 +149,17 @@ function obtenerPokemon(url) {
         $pokemonType.textContent = `Type: ${(respuesta.types[0].type.name).charAt(0).toUpperCase() + (respuesta.types[0].type.name).slice(1)}`;
         $pokemonHeight.textContent = `Height: ${respuesta.height/10} M.`;
         $pokemonWeight.textContent = `Weight: ${respuesta.weight/10} Kg.`;
+        $textContainer.classList = 'text-container';
+        $imgContainer.classList = 'img-container';
 
-        $container.appendChild($imgPokemon);
+
+        $imgContainer.appendChild($imgPokemon);
         $textContainer.appendChild($namePokemon);
         $textContainer.appendChild($pokemonNumber);
         $textContainer.appendChild($pokemonType);
         $textContainer.appendChild($pokemonHeight);
         $textContainer.appendChild($pokemonWeight);
+        $container.appendChild($imgContainer);
         $container.appendChild($textContainer);
         $fichaPokemon.appendChild($container);
     });

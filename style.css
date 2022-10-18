@@ -1,6 +1,12 @@
 * {
     font-family: 'Press Start 2P', cursive;
-    background-color: #F8F0E8;
+    background: repeating-linear-gradient(
+      to bottom,
+      #F8D0A8 0px,
+      #F8D0A8 5px,
+      #F8A890 5px,
+      #F8A890 10px
+    );
     color: white;
     display: grid;
 }
@@ -25,18 +31,42 @@ a:link, a:visited, a:hover, a:active  {
     display: none;
 }
 
- .container {
-    padding:5px;
-    background-image: linear-gradient(#C8A8E8, #C8A8E8), 
-        linear-gradient(#F8F0E8, #F8F0E8);
+.container {
+    padding: 5px;
+    background-image: 
+        repeating-linear-gradient(
+            to bottom,
+            #F8D0A8 0px,
+            #F8D0A8 5px,
+            #F8A890 5px,
+            #F8A890 10px
+        ), 
+        repeating-linear-gradient(
+            to bottom,
+            #F8D0A8 0px,
+            #F8D0A8 5px,
+            #F8A890 5px,
+            #F8A890 10px
+        );
     background-clip: content-box, padding-box;
 }
 
-p, #volver, #previo, #seleccionar, #siguiente {
-    background-color: #788090;
+.container-imagen, .pokemon-imagen, .img-container {
+    background: repeating-linear-gradient(
+      to bottom,
+      #E8E8E8 0px,
+      #E8E8E8 7px,
+      #F8F8F8 7px,
+      #F8F8F8 10px
+    );
 }
 
-#select-pagina {
-    background-color: white;
+p, #volver, #previo, #seleccionar, #siguiente, .container-nombre, .text-container {
+    background: #788090;
+    border-color: #606878;
+}
+
+#select-pagina, option {
+    background: white;
     color:#788090;
 }
