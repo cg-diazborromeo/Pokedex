@@ -10,17 +10,15 @@
     color: white;
     display: grid;
 }
+#lista-pokemones {
+    margin-top: 20px;
+}
 
 .image-center {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 50%;
-}
-
-.row.justify-content-center {
-    margin-top: 25px;
-    margin-bottom: 25px;
 }
 
 a:link, a:visited, a:hover, a:active  {
@@ -31,27 +29,25 @@ a:link, a:visited, a:hover, a:active  {
     display: none;
 }
 
-.container {
-    padding: 5px;
-    background-image: 
-        repeating-linear-gradient(
-            to bottom,
-            #F8D0A8 0px,
-            #F8D0A8 5px,
-            #F8A890 5px,
-            #F8A890 10px
-        ), 
-        repeating-linear-gradient(
-            to bottom,
-            #F8D0A8 0px,
-            #F8D0A8 5px,
-            #F8A890 5px,
-            #F8A890 10px
-        );
-    background-clip: content-box, padding-box;
+#logo {
+    margin-top: 20px;
 }
 
-.container-imagen, .pokemon-imagen, .img-container {
+.container {
+    padding: 5px;
+    padding-top: 10px;
+}
+
+.ficha-container, .container-ficha {
+  border-radius: 10px;
+  background: #F8F0E8;
+  border: 2px solid #E8E8C0;
+  padding: 10px;
+  width: flex;
+  height: flex;
+}
+
+.pokemon-imagen {
     background: repeating-linear-gradient(
       to bottom,
       #E8E8E8 0px,
@@ -61,12 +57,50 @@ a:link, a:visited, a:hover, a:active  {
     );
 }
 
-p, #volver, #previo, #seleccionar, #siguiente, .container-nombre, .text-container {
+.container-imagen, .img-container {
+    background: repeating-linear-gradient(
+      to bottom,
+      #E8E8E8 0px,
+      #E8E8E8 7px,
+      #F8F8F8 7px,
+      #F8F8F8 10px
+    );
+    border: 2px solid #606878;
+    border-radius: 10px;
+}
+
+#ficha-pokemon {
+    margin-bottom: 15px;
+}
+
+#navegador, #navegador-individual {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#volver, #previo, #siguiente {
     background: #788090;
-    border-color: #606878;
+    border: 2px solid #606878;
+}
+
+#seleccionar {
+    width: 120px;
+    background: #788090;
+    border: 2px solid #606878;
 }
 
 #select-pagina, option {
     background: white;
     color:#788090;
+}
+
+.container-nombre, .text-container {
+    background: #F8F0E8;
+    padding-top: 10%;
+}
+
+p {
+    background: #788090;
+    border: 2px solid #606878;
+    border-radius: 10px;
 }
