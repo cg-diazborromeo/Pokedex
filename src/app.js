@@ -62,12 +62,14 @@ function obtenerPokemones(listaPokemones) {
             const $container = document.createElement('div');
             const $nameContainer = document.createElement('div');
             const $imgContainer = document.createElement('div');
+            const $fichaContenedor = document.createElement('div');
             
             $container.classList = 'container col-3';
             $imgPokemon.classList = 'pokemon-imagen image-center';
             $namePokemon.classList = 'pokemon-nombre';
             $nameContainer.classList = 'container-nombre';
             $imgContainer.classList = 'container-imagen';
+            $fichaContenedor.classList = 'container-ficha';
         
             $imgPokemon.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${respuesta.results[pokemon].url.slice(30).match(/(\d+)/g)}.png`;
             $imgPokemon.onclick = (e) => {
@@ -89,8 +91,9 @@ function obtenerPokemones(listaPokemones) {
 
             $nameContainer.appendChild($namePokemon);
             $imgContainer.appendChild($imgPokemon);
-            $container.appendChild($imgContainer);
-            $container.appendChild($nameContainer);
+            $fichaContenedor.appendChild($imgContainer);
+            $fichaContenedor.appendChild($nameContainer);
+            $container.appendChild($fichaContenedor);
             $listaPokemones.appendChild($container);
         });
     })
@@ -98,29 +101,34 @@ function obtenerPokemones(listaPokemones) {
 };
 
 function borrarPokemones() {
-    const $pokemonContainer = document.querySelectorAll('.container', 'col-4');
-    const $pokemonImg = document.querySelectorAll('.pokemon-imagen');
-    const $pokemonName = document.querySelectorAll('.pokemon-nombre');
-    const $nameContainer = document.querySelectorAll('.container-nombre');
-    const $imgContainer = document.querySelectorAll('.container-imagen');
+    const $pokemonContainers = document.querySelectorAll('.container', 'col-4');
+    const $pokemonImgs = document.querySelectorAll('.pokemon-imagen');
+    const $pokemonNames = document.querySelectorAll('.pokemon-nombre');
+    const $nameContainers = document.querySelectorAll('.container-nombre');
+    const $imgContainers = document.querySelectorAll('.container-imagen');
+    const $fichaContainers = document.querySelectorAll('.container-ficha');
 
-    $pokemonContainer.forEach(container => {
+    $pokemonContainers.forEach(container => {
         container.remove();
     });
 
-    $pokemonImg.forEach(imagen => {
+    $pokemonImgs.forEach(imagen => {
         imagen.remove();
     });
 
-    $pokemonName.forEach(name => {
+    $pokemonNames.forEach(name => {
         name.remove();
     });
 
-    $nameContainer.forEach(element => {
+    $nameContainers.forEach(element => {
         element.remove();
     });
 
-    $imgContainer.forEach(element => {
+    $imgContainers.forEach(element => {
+        element.remove();
+    });
+
+    $fichaContainers.forEach(element => {
         element.remove();
     });
 };
@@ -135,6 +143,7 @@ function obtenerPokemon(url) {
         const $imgPokemon = document.createElement('img');
         const $textContainer = document.createElement('div');
         const $imgContainer = document.createElement('div');
+        const $fichaContainer = document.createElement('div');
         const $namePokemon = document.createElement('p');  
         const $pokemonNumber = document.createElement('p');
         const $pokemonType = document.createElement('p');
@@ -144,13 +153,14 @@ function obtenerPokemon(url) {
         $container.classList = 'container col-3';
         $imgPokemon.classList = 'pokemon-imagen image-center';
         $imgPokemon.src = respuesta.sprites.front_default;
-        $namePokemon.textContent = (respuesta.name).charAt(0).toUpperCase() + (respuesta.name).slice(1);
+        $namePokemon.textContent = `Name: ${(respuesta.name).charAt(0).toUpperCase() + (respuesta.name).slice(1)}`;
         $pokemonNumber.textContent = `Order: #${respuesta.id}`;
         $pokemonType.textContent = `Type: ${(respuesta.types[0].type.name).charAt(0).toUpperCase() + (respuesta.types[0].type.name).slice(1)}`;
         $pokemonHeight.textContent = `Height: ${respuesta.height/10} M.`;
         $pokemonWeight.textContent = `Weight: ${respuesta.weight/10} Kg.`;
         $textContainer.classList = 'text-container';
         $imgContainer.classList = 'img-container';
+        $fichaContainer.classList = 'ficha-container';
 
 
         $imgContainer.appendChild($imgPokemon);
@@ -159,8 +169,9 @@ function obtenerPokemon(url) {
         $textContainer.appendChild($pokemonType);
         $textContainer.appendChild($pokemonHeight);
         $textContainer.appendChild($pokemonWeight);
-        $container.appendChild($imgContainer);
-        $container.appendChild($textContainer);
+        $fichaContainer.appendChild($imgContainer);
+        $fichaContainer.appendChild($textContainer);
+        $container.appendChild($fichaContainer);
         $fichaPokemon.appendChild($container);
     });
 };
