@@ -47,7 +47,7 @@ a:link, a:visited, a:hover, a:active  {
   height: flex;
 }
 
-.pokemon-imagen {
+.pokemon-imagen, .pokemon-img {
     background: repeating-linear-gradient(
       to bottom,
       #E8E8E8 0px,
