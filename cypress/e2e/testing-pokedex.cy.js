@@ -9,8 +9,10 @@ describe('Test pokedex', () => {
     cy.get('#logo').should('be.visible');
     cy.get('#lista-pokemones').should('be.visible');
     cy.get('#ficha-pokemon').should('not.be.visible');
+    cy.get('#navegador').should('be.visible');
     cy.contains('Bulbasaur').should('be.visible');
     cy.contains('Previos').should('be.visible');
+    cy.contains('1').should('be.visible');
     cy.contains('Select').should('be.visible');
     cy.contains('Siguientes').should('be.visible');
   })
