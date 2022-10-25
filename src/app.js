@@ -7,7 +7,7 @@ const $numerosPaginas = document.querySelector('#select-pagina');
 const $botonSeleccionar = document.querySelector('#seleccionar');
 const $navegador = document.querySelector('#navegador');
 const $navIndividual = document.querySelector('#navegador-individual');
-const $botonVolver = document.querySelector("voler");
+const $botonVolver = document.querySelector("#volver");
 let pokemonesIniciales = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20';
 let pokemonesPrevios = '';
 let pokemonesSiguientes = '';
