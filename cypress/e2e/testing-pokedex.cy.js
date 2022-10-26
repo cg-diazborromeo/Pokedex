@@ -3,48 +3,70 @@
 describe('Test pokedex', () => {
   before('Visita la pagina del pokedex', () => {
     cy.visit('http://127.0.0.1:8080/')
-  })
+  });
 
   it('Comprueba display inicial', () => {
     cy.get('#logo').should('be.visible');
     cy.get('#lista-pokemones').should('be.visible');
-    cy.get('#ficha-pokemon').should('not.be.visible');
+    cy.get('img').should('be.visible');
     cy.get('#navegador').should('be.visible');
+    cy.get('#ficha-pokemon').should('not.be.visible');
+    cy.get('#navegador-individual').should('not.be.visible');
     cy.contains('Bulbasaur').should('be.visible');
     cy.contains('Previos').should('be.visible');
     cy.contains('1').should('be.visible');
     cy.contains('Select').should('be.visible');
     cy.contains('Siguientes').should('be.visible');
-  })
-})
 
-// describe('Testeo exchange', () => {
-//   before('Visita la pagina del exchange', () => {
-//     cy.visit(' http://127.0.0.1:8080')
-//   })
+    cy.get('#lista-pokemones>div').should(($div) => {
+      expect($div).to.have.length('20');
+    });
+  });
 
-//   it('Comprueba disposicion incial', () => {
-//     cy.get('#base-monetaria').should('not.be.visible');
-//     cy.contains('Seleccionar').should('be.visible');
-//     cy.contains('Seleccione una base monetaria').should('be.visible');
-//     cy.get('#opciones-fechas').should('be.visible');
-    
-//   })
+  it('Testea paginacion', () => {
+    cy.get('#select-pagina').select('2').should('have.value', 2);
+    cy.get('#select-pagina').should('be.visible');
+    cy.get('#seleccionar').click();
+    cy.contains('Pikachu').should("be.visible");
 
-//   it('Selecciona moneda y fecha de cambios', () => {
-//     cy.get('#opciones-monedas').select('ARS').should('have.value', 'ARS');
-//     cy.get('#opciones-monedas>option').should('be.visible');
-//     cy.get('#opciones-fechas').type('2020-08-25');
-//     cy.get('#seleccionar').click();
+    cy.get('#siguiente').click();
+    cy.contains('Golbat').should('be.visible');
 
-//   })
+    cy.get('#previo').click();
+    cy.contains('Vulpix').should('be.visible');
+  });
 
-//   it('Comprueba resultados', () => {
-//     cy.get('#lista-cambios').should('be.visible')
-//     cy.get('#lista-cambios>li').should(($li) => {
-//       expect($li).to.have.length('171');
-//     })
+  it('Testea ficha individual', () => {
+    cy.contains('Pikachu').click();
+    cy.get('#lista-pokemones').should('not.be.visible');
+    cy.get('#navegador').should('not.be.visible');
+    cy.get('#logo').should('be.visible');
+    cy.get('#ficha-pokemon').should('be.visible');
+    cy.get('#navegador-individual').should('be.visible');
+    cy.get('img').should('be.visible');
+    cy.contains('Order').should('be.visible');
+    cy.contains('Type').should('be.visible');
+    cy.contains('Height').should('be.visible');
+    cy.contains('Weight').should('be.visible');
 
-//   })
+    cy.get('#volver').click();
+    cy.get('#lista-pokemones').should('be.visible');
+    cy.get('#navegador').should('be.visible');
+    cy.get('#ficha-pokemon').should('not.be.visible');
+    cy.get('#navegador-individual').should('not.be.visible');
+    cy.contains('Vulpix').should('be.visible').click();
 
-// })
+    cy.get('#ficha-pokemon').should('be.visible');
+    cy.get('#navegador-individual').should('be.visible');
+    cy.get('img').should('be.visible');
+    cy.contains('Order').should('be.visible');
+    cy.contains('Type').should('be.visible');
+    cy.contains('Height').should('be.visible');
+    cy.contains('Weight').should('be.visible');
+    cy.contains('Pikachu').should('not.be.visible');
+
+    cy.get('#volver').click();
+    cy.get('#lista-pokemones').should('be.visible');
+    cy.get('#navegador').should('be.visible');
+  });
+});
