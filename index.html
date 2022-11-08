@@ -6,9 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./node_modules/nes.css/css/nes.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
     <link rel="stylesheet" href="node_modules\bootstrap\dist\css\bootstrap.min.css">
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 </head>
@@ -20,19 +18,19 @@
     <div id="lista-pokemones" class="row row-cols-2 text-center"></div>
     <div id="ficha-pokemon" class="oculto"></div>
 
-    <form>
+    <nav class="navbar sticky-bottom justify-content-center">
         <div id="navegador" class="row justify-content-center">
-            <button id="previo" class="col-3">Previos</button>
+            <button id="previo" class="col-3">Previous Page</button>
             <select id="select-pagina" class="col-1">
                 <option value=""></option>
             </select>
             <button id="seleccionar" class="col-1">Select</button>
-            <button id="siguiente" class="col-3">Siguientes</button>
+            <button id="siguiente" class="col-3">Next Page</button>
         </div>
         <div id="navegador-individual" class="oculto">
             <button id="volver" class="col-3">Volver</button>
         </div>
-    </form>
+    </nav>
 
     <script type="text/javascript" src="src/app.js"></script>
 </body>

@@ -12,10 +12,13 @@ let pokemonesIniciales = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20';
 let pokemonesPrevios = '';
 let pokemonesSiguientes = '';
 let cantidadPaginas = 0;
+let paginaActual = 1;
 
 obtenerPokemones(pokemonesIniciales);
+obtenerPaginacion(pokemonesIniciales);
 
 $listaSiguiente.onclick = function(event) {
+    setearPaginaActual('siguiente');
     borrarPokemones()
     obtenerPokemones(pokemonesSiguientes);
 
@@ -23,6 +26,7 @@ $listaSiguiente.onclick = function(event) {
 }
 
 $listaPrevia.onclick = function(event) {
+    setearPaginaActual('previa');
     borrarPokemones();
     obtenerPokemones(pokemonesPrevios);
     
@@ -30,6 +34,7 @@ $listaPrevia.onclick = function(event) {
 }
 
 $botonSeleccionar.onclick = function(event) {
+    setearPaginaActual();
     borrarPokemones();
     obtenerPokemones(`${baseURL}pokemon/?offset=${($numerosPaginas.value-1)*20}&limit=20`);
 
@@ -52,10 +57,6 @@ function obtenerPokemones(listaPokemones) {
     .then(respuesta => {
         pokemonesPrevios = respuesta.previous === null ? pokemonesIniciales : respuesta.previous;
         pokemonesSiguientes = respuesta.next;
-        cantidadPaginas = Math.round(respuesta.count/20);
-        
-        borrarPaginacion();
-        cargarPaginacion(cantidadPaginas);
 
         Object.keys(respuesta.results).forEach(pokemon => {
             const $imgPokemon = document.createElement('img');
@@ -99,6 +100,15 @@ function obtenerPokemones(listaPokemones) {
         });
     })
     .catch(error => console.log('No se obtuvieron resultados', error));
+};
+
+function obtenerPaginacion(listaPokemones) {
+    fetch(`${listaPokemones}`)
+    .then(respuesta => respuesta.json())
+    .then(respuesta => {
+        cantidadPaginas = Math.round(respuesta.count/20);
+        cargarPaginacion(cantidadPaginas);
+    });
 };
 
 function borrarPokemones() {
@@ -214,6 +224,20 @@ function borrarFichaPokemon() {
     $dataPokemon.forEach(data => {
         data.remove();
     });
+};
+
+function setearPaginaActual(filter) {
+    if (filter === 'siguiente') {
+        paginaActual += 1;
+        $numerosPaginas.value = paginaActual;
+    } else if (filter === 'previa') {
+        if (paginaActual > 1) {
+            paginaActual -= 1;
+            $numerosPaginas.value = paginaActual;
+        } else {return}
+    } else {
+        paginaActual = Number($numerosPaginas.value);
+    }
 };
 
 function cargarPaginacion(cantidadPaginas) {

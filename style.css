@@ -9,9 +9,12 @@
     );
     color: white;
     display: grid;
+    position: relative;
 }
+
 #lista-pokemones {
     margin-top: 20px;
+    margin-bottom: 30px;
 }
 
 .image-center {
@@ -70,13 +73,18 @@ a:link, a:visited, a:hover, a:active  {
 }
 
 #ficha-pokemon {
-    margin-bottom: 15px;
+    margin-bottom: 30px;
     margin-top: 20px;
 }
 
+nav {
+    background: #F8F0E8;
+    border: 2px solid #E8E8C0;
+}
+
 #navegador, #navegador-individual {
-    margin-top: 30px;
-    margin-bottom: 30px;
+    background: #F8F0E8;
+    width: 100%;
 }
 
 #volver, #previo, #siguiente {
